@@ -10,9 +10,7 @@ public class Main {
         ClassSchedule schedule = new ClassSchedule();
         
         try {
-            
-            // Get CSV/JSON Data
-            
+
             List<String[]> csvOriginal = schedule.getCsv();
             JsonObject jsonOriginal = schedule.getJson();
             
@@ -22,6 +20,14 @@ public class Main {
             
             JsonArray sections = (JsonArray)jsonOriginal.get("section");
             System.out.println("Sections Found (JSON): " + sections.size());
+            
+            // Test "convertCsvToJsonString()" Method
+            
+            String json = schedule.convertCsvToJsonString(csvOriginal);
+            System.out.println(json);
+            
+            String csv = schedule.convertJsonToCsvString(jsonOriginal);
+            System.out.println(csv);
             
         }
         catch (Exception e) { e.printStackTrace(); }
