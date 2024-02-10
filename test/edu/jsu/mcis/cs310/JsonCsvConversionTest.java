@@ -68,7 +68,6 @@ public class JsonCsvConversionTest {
             
         }
         catch (Exception e) {
-            e.printStackTrace();
             Assert.fail();
         }
         
@@ -87,7 +86,6 @@ public class JsonCsvConversionTest {
             
         }
         catch (Exception e) {
-            e.printStackTrace();
             Assert.fail();
         }
         
@@ -108,7 +106,6 @@ public class JsonCsvConversionTest {
             
         }
         catch (Exception e) {
-            e.printStackTrace();
             Assert.fail();
         }
         
@@ -160,7 +157,6 @@ public class JsonCsvConversionTest {
             
         }
         catch (Exception e) {
-            e.printStackTrace();
             Assert.fail();
         }
         
