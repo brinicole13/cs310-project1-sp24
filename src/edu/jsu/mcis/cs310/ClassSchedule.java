@@ -72,7 +72,7 @@ public class ClassSchedule {
             String [] row = iterator.next();
             
             //STRINGS
-            String NumberOriginalField = row [headers.get(NUM_COL_HEADER)];
+            String NumberOField = row [headers.get(NUM_COL_HEADER)];
             String SubjectField = row [headers.get(SUBJECT_COL_HEADER)];
             String TypeField = row [headers.get(TYPE_COL_HEADER)];
             String ScheduleField = row [headers.get(SCHEDULE_COL_HEADER)];
@@ -87,7 +87,7 @@ public class ClassSchedule {
             String[] instructors = row [headers.get(INSTRUCTOR_COL_HEADER)].split(",");
             
             //STRING NUMBER ARRAY FOR THE NUMBER ORIGINAL FIELD TO SPLIT 
-            String[] numArray = NumberOriginalField.split(" ");
+            String[] numArray = NumberOField.split(" ");
             String SubjectidField = numArray[0];
             String NumField = numArray[1];
             
@@ -96,28 +96,28 @@ public class ClassSchedule {
             scheduletype.put(TypeField, ScheduleField);
             
             //COURSEELEMENT: COURSE FACTOR FOR SUBJECTID, NUMBER, DESCRIPTION
-            JsonObject CourseElement = new JsonObject();
-            CourseElement.put(SUBJECTID_COL_HEADER, SubjectidField);
-            CourseElement.put(NUM_COL_HEADER, NumField);
-            CourseElement.put(DESCRIPTION_COL_HEADER, row [headers.get(DESCRIPTION_COL_HEADER)]);
+            JsonObject CourseDetail = new JsonObject();
+            CourseDetail.put(SUBJECTID_COL_HEADER, SubjectidField);
+            CourseDetail.put(NUM_COL_HEADER, NumField);
+            CourseDetail.put(DESCRIPTION_COL_HEADER, row [headers.get(DESCRIPTION_COL_HEADER)]);
             //INTEGER VALUE FOR CREDITS COLUMN
-            CourseElement.put(CREDITS_COL_HEADER, Integer.valueOf (row [headers.get(CREDITS_COL_HEADER)]));
+            CourseDetail.put(CREDITS_COL_HEADER, Integer.valueOf (row [headers.get(CREDITS_COL_HEADER)]));
             
             //NUMBER ORIGINAL FIELD AND COURSE ELEMENT COMPLETED
-            course.put(NumberOriginalField, CourseElement);
+            course.put(NumberOField, CourseDetail);
             
             //JSONOBJECT SECTIONELEMENT 
-            JsonObject SectionElement = new JsonObject();
+            JsonObject SectionDetail = new JsonObject();
             //SECTIONELEMENT CRN COLUMN VALUE OF EACH ROW
-            SectionElement.put(CRN_COL_HEADER, Integer.valueOf (row [headers.get(CRN_COL_HEADER)]));
-            SectionElement.put(SUBJECTID_COL_HEADER, SubjectidField);
-            SectionElement.put(NUM_COL_HEADER, NumField);
-            SectionElement.put(SECTION_COL_HEADER, SectionField);
-            SectionElement.put(TYPE_COL_HEADER, TypeField);
-            SectionElement.put(START_COL_HEADER, StartTime);
-            SectionElement.put(END_COL_HEADER, EndTime);
-            SectionElement.put(DAYS_COL_HEADER, Days);
-            SectionElement.put(WHERE_COL_HEADER, Where);
+            SectionDetail.put(CRN_COL_HEADER, Integer.valueOf (row [headers.get(CRN_COL_HEADER)]));
+            SectionDetail.put(SUBJECTID_COL_HEADER, SubjectidField);
+            SectionDetail.put(NUM_COL_HEADER, NumField);
+            SectionDetail.put(SECTION_COL_HEADER, SectionField);
+            SectionDetail.put(TYPE_COL_HEADER, TypeField);
+            SectionDetail.put(START_COL_HEADER, StartTime);
+            SectionDetail.put(END_COL_HEADER, EndTime);
+            SectionDetail.put(DAYS_COL_HEADER, Days);
+            SectionDetail.put(WHERE_COL_HEADER, Where);
             
             //LIST FOR INSTRUCTORS LIST (ARRAYlIST)
             List <String> instructorsList = new ArrayList<>();
@@ -128,8 +128,8 @@ public class ClassSchedule {
             }
             
             //SECTIONELEMENT FOR INSTRUTOR AND COMPLETED SECTIONELEMENTS
-            SectionElement.put(INSTRUCTOR_COL_HEADER, instructorsList);
-            section.add(SectionElement);
+            SectionDetail.put(INSTRUCTOR_COL_HEADER, instructorsList);
+            section.add(SectionDetail);
             
             //JSON.PUT FOR SUBJECT, SCHEDULETYPE, COURSE, SECTION
             json.put("subject", subject);
@@ -156,7 +156,8 @@ public class ClassSchedule {
         List <String[]> csvLines = new ArrayList<>();
         
         //STRING CSVHEADER
-        String[] csvHeader = {CRN_COL_HEADER, SUBJECT_COL_HEADER, NUM_COL_HEADER,
+        String[] csvHeader = 
+            {CRN_COL_HEADER, SUBJECT_COL_HEADER, NUM_COL_HEADER,
             DESCRIPTION_COL_HEADER, SECTION_COL_HEADER, TYPE_COL_HEADER, CREDITS_COL_HEADER,
             START_COL_HEADER, END_COL_HEADER, DAYS_COL_HEADER, WHERE_COL_HEADER,
             SCHEDULE_COL_HEADER, INSTRUCTOR_COL_HEADER};
@@ -177,9 +178,9 @@ public class ClassSchedule {
             HashMap courseDetails = (HashMap) courses.get((CurrentSection.get(SUBJECTID_COL_HEADER) + " " + CurrentSection.get(NUM_COL_HEADER)));
             String[] csvLine = {CurrentSection.get(CRN_COL_HEADER).toString(), subjects.get(CurrentSection.get(SUBJECTID_COL_HEADER)).toString(),
         (CurrentSection.get(SUBJECTID_COL_HEADER) + " " + CurrentSection.get(NUM_COL_HEADER)), courseDetails.get(DESCRIPTION_COL_HEADER).toString(),
-        CurrentSection.get(SECTION_COL_HEADER).toString(),CurrentSection.get(TYPE_COL_HEADER).toString(),courseDetails.get(CREDITS_COL_HEADER).toString(),
-        CurrentSection.get(START_COL_HEADER).toString(),CurrentSection.get(END_COL_HEADER).toString(),CurrentSection.get(DAYS_COL_HEADER).toString(),
-        CurrentSection.get(WHERE_COL_HEADER).toString(),scheduleTypes.get(CurrentSection.get(TYPE_COL_HEADER).toString()).toString(),instructors};
+         CurrentSection.get(SECTION_COL_HEADER).toString(),CurrentSection.get(TYPE_COL_HEADER).toString(),courseDetails.get(CREDITS_COL_HEADER).toString(),
+         CurrentSection.get(START_COL_HEADER).toString(),CurrentSection.get(END_COL_HEADER).toString(),CurrentSection.get(DAYS_COL_HEADER).toString(),
+         CurrentSection.get(WHERE_COL_HEADER).toString(),scheduleTypes.get(CurrentSection.get(TYPE_COL_HEADER).toString()).toString(),instructors};
 
         csvLines.add(csvLine);
         }
